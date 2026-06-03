@@ -425,7 +425,7 @@ if page == "⚡ Home":
                 border:1px solid #c9a227; text-align:center;'>
         <div style='margin:0 auto 16px;'>
             <img src='{LOGO_URL}'
-                 style='width:220px; height:auto; border-radius:12px;'
+                 style='width:280px; height:auto; border-radius:12px;'
                  alt='Agentic Alpha Logo'>
         </div>
         <div style='font-size:30px; font-weight:900; color:#FFD700;
