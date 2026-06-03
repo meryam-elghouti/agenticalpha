@@ -4,7 +4,7 @@ try:
     from PIL import Image
     import requests
     from io import BytesIO
-    FAVICON_URL = "https://raw.githubusercontent.com/meryam-elghouti/agenticalpha/refs/heads/main/favicon.png.png"
+    FAVICON_URL = "https://raw.githubusercontent.com/meryam-elghouti/agenticalpha/refs/heads/main/favicon.png"
     response = requests.get(FAVICON_URL)
     icon = Image.open(BytesIO(response.content))
     st.set_page_config(
