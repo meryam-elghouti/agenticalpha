@@ -1,3 +1,21 @@
+try:
+    from PIL import Image
+    icon = Image.open("favicon.png")
+    import streamlit as st
+    st.set_page_config(
+        page_title="The Agentic Alpha",
+        page_icon=icon,
+        layout="wide",
+        initial_sidebar_state="expanded"
+    )
+except:
+    import streamlit as st
+    st.set_page_config(
+        page_title="The Agentic Alpha",
+        page_icon="⚡",
+        layout="wide",
+        initial_sidebar_state="expanded"
+    )
 import subprocess
 subprocess.run(["pip", "install", "plotly", "groq", "-q"])
 
