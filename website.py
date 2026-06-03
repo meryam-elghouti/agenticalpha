@@ -4,7 +4,7 @@ try:
     from PIL import Image
     import requests
     from io import BytesIO
-    FAVICON_URL = "https://raw.githubusercontent.com/meryam-elghouti/agenticalpha/refs/heads/main/favicon.png"
+    FAVICON_URL = "https://raw.githubusercontent.com/meryam-elghouti/agenticalpha/refs/heads/main/favicon.png.png"
     response = requests.get(FAVICON_URL)
     icon = Image.open(BytesIO(response.content))
     st.set_page_config(
@@ -1661,7 +1661,7 @@ elif page == "📋 About":
             st.markdown(f"""
             <div class='aa-card' style='border-top:4px solid #c9a227;'>
                 <div style='font-size:36px; font-weight:900;
-                            color:#f1f5f9;'>{num}</div>
+                            color:#c9a227;'>{num}</div>
                 <div style='color:#0a1628; font-weight:700; font-size:14px;
                             margin:8px 0 6px;'>{title}</div>
                 <div style='color:#64748b; font-size:13px;
