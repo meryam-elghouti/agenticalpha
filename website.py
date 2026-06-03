@@ -198,9 +198,9 @@ st.sidebar.markdown(
 )
 
 page = st.sidebar.radio("", [
-    "⚡ Home", "🤖 Live Analyzer", "📊 Dashboard",
-    "⚔️ AI vs Human", "📂 Custom Analysis",
-    "🎤 Jury Demo", "📋 About"
+    "🏠 Home", "🤖 Live Analyzer", "📊 Dashboard",
+    "⚔️ AI vs Human", "🔍 Custom Analysis",
+    "🎓 Jury Demo", "ℹ️ About"
 ])
 
 st.sidebar.markdown("---")
@@ -418,7 +418,7 @@ PERSONAS = [
 # ══════════════════════════════════════════════
 # HOME
 # ══════════════════════════════════════════════
-if page == "⚡ Home":
+if page == "🏠 Home":
     st.markdown(f"""
     <div style='background:linear-gradient(135deg,#0a1628,#1a3a6b);
                 border-radius:16px; padding:40px; margin-bottom:24px;
@@ -1142,7 +1142,7 @@ elif page == "⚔️ AI vs Human":
 # ══════════════════════════════════════════════
 # CUSTOM ANALYSIS
 # ══════════════════════════════════════════════
-elif page == "📂 Custom Analysis":
+elif page == "🔍 Custom Analysis":
     st.title("📂 Custom Investment Simulation")
     st.markdown(
         "*Input your company data for a private AI-powered "
@@ -1358,7 +1358,7 @@ ALTERNATIVE: (if NO — what instead?)
 # ══════════════════════════════════════════════
 # JURY DEMO
 # ══════════════════════════════════════════════
-elif page == "🎤 Jury Demo":
+elif page == "🎓 Jury Demo":
     st.title("🎤 Jury Presentation Demo")
     st.markdown("*Live simulation for thesis defense*")
     st.markdown("""
@@ -1539,7 +1539,7 @@ REASON 3: (one sentence)
 # ══════════════════════════════════════════════
 # ABOUT
 # ══════════════════════════════════════════════
-elif page == "📋 About":
+elif page == "ℹ️ About":
     st.title("📋 About This Research")
     st.markdown(
         "*The Agentic Alpha — Multi-Agent AI Decision Support System*"
