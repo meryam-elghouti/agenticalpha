@@ -163,7 +163,7 @@ st.sidebar.markdown(f"""
 <div style='text-align:center; padding:20px 0 24px;'>
     <div style='margin:0 auto;'>
         <img src='{LOGO_URL}'
-             style='width:160px; height:auto; border-radius:12px;'
+             style='width:160px; height:auto; border-radius:50%;'
              alt='Agentic Alpha'>
     </div>
     <div style='margin-top:14px; font-size:15px; font-weight:800;
@@ -425,7 +425,7 @@ if page == "⚡ Home":
                 border:1px solid #c9a227; text-align:center;'>
         <div style='margin:0 auto 16px;'>
             <img src='{LOGO_URL}'
-                 style='width:280px; height:auto; border-radius:12px;'
+                 style='width:280px; height:auto; border-radius:50%;'
                  alt='Agentic Alpha Logo'>
         </div>
         <div style='font-size:30px; font-weight:900; color:#FFD700;
@@ -1776,13 +1776,13 @@ elif page == "📋 About":
 
     st.markdown("---")
     st.markdown(f"""
-    <div style='text-align:center; padding:32px 0 16px;'>
-        <img src='{LOGO_URL}'
-             style='width:320px; height:auto;
-                    border-radius:16px;
-                    box-shadow:0 8px 32px rgba(0,0,0,0.15);
-                    margin-bottom:16px;'
-             alt='Agentic Alpha Logo'>
+    <div style='text-align:center; padding:32px 0 16px;
+            background:transparent;'>
+    <img src='{LOGO_URL}'
+         style='width:320px; height:auto;
+                border-radius:50%;
+                margin-bottom:16px;'
+         alt='Agentic Alpha Logo'>
         <div style='color:#94a3b8; font-size:12px; margin-top:8px;'>
             Master's Thesis · The Agentic Alpha · Meryam El Ghouti ·
             Sapienza University of Rome · 2026 ·
