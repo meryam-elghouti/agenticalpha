@@ -1,9 +1,9 @@
 import streamlit as st
 
 try:
-    from PIL import Image
+    from PIL import Imageā
     import requests
-    from io import BytesIO
+    from io import ByteāsIO
     FAVICON_URL = "https://raw.githubusercontent.com/meryam-elghouti/agenticalpha/refs/heads/main/favicon.png.png"
     response = requests.get(FAVICON_URL)
     icon = Image.open(BytesIO(response.content))
@@ -749,7 +749,7 @@ EXPLANATION: (one sentence)
                                     font-weight:800; font-size:16px; margin:4px 0;'>
                             {"⚠️ YES" if detected else "✅ NO"}</div>
                         <div style='color:#64748b; font-size:11px;
-                                    line-height:1.4;'>{val[:80]}</div>
+                                    line-height:1.4;'>{val}</div>
                     </div>
                     """, unsafe_allow_html=True)
             if mb:
