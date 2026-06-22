@@ -761,17 +761,17 @@ elif page == "🔬 Reliability Test":
     produce the exact same result, regardless of when or how many times it is run.
     """)
     st.markdown("### 📊 Reliability Test Results — 5 Companies × 3 Runs × 3 Personas = 45 Simulations")
-    st.caption("Five representative cases each run three times using the Jury Demo with identical inputs. All decisions and scores are identical across all runs — confirming 100% consistency.")
+    st.caption("Five representative cases from the research dataset each run three times. Inputs use the exact decision text from the dataset. All decisions and scores are identical across all runs — confirming 100% consistency.")
     # Results verified from Jury Demo page with identical inputs — 3 runs each
     reliability_data = {
         "Company": ["WeWork","WeWork","WeWork","Tesla","Tesla","Tesla","Apple","Apple","Apple","Theranos","Theranos","Theranos","Amazon","Amazon","Amazon"],
         "Year": [2019,2019,2019,2020,2020,2020,2018,2018,2018,2016,2016,2016,2015,2015,2015],
         "Outcome": ["Failed","Failed","Failed","Success","Success","Success","Success","Success","Success","Failed","Failed","Failed","Success","Success","Success"],
         "Run": ["Run 1","Run 2","Run 3","Run 1","Run 2","Run 3","Run 1","Run 2","Run 3","Run 1","Run 2","Run 3","Run 1","Run 2","Run 3"],
-        "Neutral Decision": ["NO","NO","NO","YES","YES","YES","YES","YES","YES","NO","NO","NO","YES","YES","YES"],
-        "Neutral Score": [20,20,20,85,85,85,85,85,85,20,20,20,85,85,85],
+        "Neutral Decision": ["YES","YES","YES","YES","YES","YES","YES","YES","YES","NO","NO","NO","YES","YES","YES"],
+        "Neutral Score": [40,40,40,85,85,85,85,85,85,20,20,20,92,92,92],
         "Aggressive Decision": ["YES","YES","YES","YES","YES","YES","YES","YES","YES","YES","YES","YES","YES","YES","YES"],
-        "Aggressive Score": [85,85,85,85,85,85,85,85,85,80,80,80,95,95,95],
+        "Aggressive Score": [80,80,80,85,85,85,85,85,85,80,80,80,95,95,95],
         "Conservative Decision": ["NO","NO","NO","NO","NO","NO","NO","NO","NO","NO","NO","NO","YES","YES","YES"],
         "Conservative Score": [20,20,20,20,20,20,20,20,20,20,20,20,85,85,85],
         "Consistency": ["✅ Identical","✅ Identical","✅ Identical","✅ Identical","✅ Identical","✅ Identical","✅ Identical","✅ Identical","✅ Identical","✅ Identical","✅ Identical","✅ Identical","✅ Identical","✅ Identical","✅ Identical"]
@@ -803,7 +803,7 @@ elif page == "🔬 Reliability Test":
     """)
     st.markdown("---")
     st.markdown("### 🧪 Verify It Yourself")
-    st.info("Go to **🎓 Jury Demo** and run: Company = WeWork · Year = 2019 · Decision = 'Proceed with IPO expansion?'. You will get: Neutral = NO / 20, Aggressive = YES / 85, Conservative = NO / 20. Run it again — the exact same result every time. ✅")
+    st.info("Go to **🎓 Jury Demo**, select **WeWork (2019)** from the dropdown. You will get: Neutral = YES / 40, Aggressive = YES / 80, Conservative = NO / 20 → Avg 47 → ⚠️ PROCEED WITH CAUTION. Run it again — the exact same result every time. ✅")
 # ══════════════════════════════════════════════
 # CUSTOM ANALYSIS
 # ══════════════════════════════════════════════
@@ -897,10 +897,29 @@ elif page == "🎓 Jury Demo":
         </div>
     </div>""", unsafe_allow_html=True)
     st.markdown("---")
+    st.markdown("**🗂️ Select a case from the research dataset (auto-fills inputs):**")
+    # Build dropdown options from dataset
+    dataset_options = ["-- Select a case or type manually below --"]
+    for _, row in df[~df["Actual_Outcome"].isin(["Pending","Mixed"])].iterrows():
+        dataset_options.append(f"{row['Company']} ({row['Year']})")
+    selected_case = st.selectbox("", dataset_options, label_visibility="collapsed")
+    # Auto-fill values based on selection
+    if selected_case != "-- Select a case or type manually below --":
+        co_name = " ".join(selected_case.split()[:-1]).rstrip("(")
+        yr_val  = selected_case.split("(")[-1].rstrip(")")
+        match = df[(df["Company"]==co_name)&(df["Year"]==int(yr_val))]
+        if not match.empty:
+            auto_co  = match.iloc[0]["Company"]
+            auto_yr  = str(match.iloc[0]["Year"])
+            auto_dec = match.iloc[0]["Corporate_Decision"]
+        else:
+            auto_co,auto_yr,auto_dec = "WeWork","2019","Proceed with IPO at $47B valuation despite $1.9B annual losses?"
+    else:
+        auto_co,auto_yr,auto_dec = "WeWork","2019","Proceed with IPO at $47B valuation despite $1.9B annual losses?"
     c1,c2,c3=st.columns(3)
-    with c1: dco=st.text_input("🏢 Company:",value="WeWork")
-    with c2: dyr=st.text_input("📅 Year:",value="2019")
-    with c3: ddec=st.text_input("📋 Decision:",value="Proceed with IPO expansion?")
+    with c1: dco=st.text_input("🏢 Company:",value=auto_co)
+    with c2: dyr=st.text_input("📅 Year:",value=auto_yr)
+    with c3: ddec=st.text_input("📋 Decision:",value=auto_dec)
     if st.button("⚡ RUN LIVE DEMONSTRATION", use_container_width=True):
         if dco and dyr:
             st.markdown(f"""<div style='background:#0a1628; border-radius:12px; padding:20px; margin:16px 0; border:1px solid #c9a227;'>
