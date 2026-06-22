@@ -433,7 +433,6 @@ elif page == "🤖 Live Analyzer":
     st.markdown("*Simulate corporate investment decisions through AI behavioral personas*")
     # KEEP: "does not predict" disclaimer is important
     st.info("⚠️ This tool simulates investment reasoning through behavioral personas. Results represent simulated decision reasoning — not causal financial predictions or investment advice.")
-    st.caption("💡 For results matching the research dataset exactly, use the 🎓 Jury Demo page which uses the precise decision context from each case.")
     st.markdown("---")
     c1,c2 = st.columns(2)
     with c1: company = st.text_input("🏢 Company Name:", placeholder="e.g. Apple, Tesla, OpenAI")
