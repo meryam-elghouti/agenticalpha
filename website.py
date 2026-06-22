@@ -1,10 +1,10 @@
 import streamlit as st
 try:
-    from PIL import Imageā
     import requests
-    from io import ByteāsIO
+    from PIL import Image
+    from io import BytesIO
     FAVICON_URL = "https://raw.githubusercontent.com/meryam-elghouti/agenticalpha/refs/heads/main/favicon.png.png"
-    response = requests.get(FAVICON_URL)
+    response = requests.get(FAVICON_URL, timeout=5)
     icon = Image.open(BytesIO(response.content))
     st.set_page_config(page_title="The Agentic Alpha",page_icon=icon,layout="wide",initial_sidebar_state="expanded")
 except:
@@ -570,50 +570,66 @@ elif page == "📊 Dashboard":
         st.markdown("---")
         st.markdown("### ⚠️ Excluded Cases — Not Included in Accuracy Analysis")
         st.markdown("#### ⚠️ Mixed Outcome Cases (3) — Simulated but Excluded")
-        # CHANGE 4: Added column_config to make "Why Excluded" column wider and readable
-        st.dataframe(
-            pd.DataFrame({
-                "Company":["Meta","Disney","Toshiba"],
-                "Year":[2021,2019,2023],
-                "Decision":["Invest billions in Metaverse?","Acquire Fox and launch Disney+?","Accept JIP take-private buyout of ¥2T?"],
-                "AI Simulated":["✅ Yes","✅ Yes","✅ Yes"],
-                "Why Excluded":[
-                    "Success on corporate revenue but Failed on segment level — Reality Labs posted $40B+ losses. Binary classification would misrepresent a genuinely ambiguous outcome.",
-                    "Success on streaming (Disney+ reached 100M+ subscribers) but Failed on acquisition economics (Fox integration wrote down $22B). Metric-dependent outcome.",
-                    "Take-private deal completed in 2023 but long-term operational turnaround outcome remains unconfirmed. Cannot classify as clear Success or Failed."
-                ],
-                "Status":["⚠️ Mixed","⚠️ Mixed","⚠️ Mixed"]
-            }),
-            use_container_width=True,
-            hide_index=True,
-            column_config={
-                "Why Excluded": st.column_config.TextColumn("Why Excluded", width="large"),
-                "Decision": st.column_config.TextColumn("Decision", width="medium"),
-                "Company": st.column_config.TextColumn("Company", width="small"),
-                "Status": st.column_config.TextColumn("Status", width="small"),
-            },
-            height=160
-        )
+        st.markdown("""
+<table style='width:100%; border-collapse:collapse; font-size:13px; background:#ffffff;'>
+  <thead>
+    <tr style='background:#0a1628; color:#FFD700;'>
+      <th style='padding:10px 12px; text-align:left; width:10%;'>Company</th>
+      <th style='padding:10px 12px; text-align:left; width:8%;'>Year</th>
+      <th style='padding:10px 12px; text-align:left; width:22%;'>Decision</th>
+      <th style='padding:10px 12px; text-align:left; width:45%;'>Why Excluded</th>
+      <th style='padding:10px 12px; text-align:left; width:10%;'>Status</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr style='border-bottom:1px solid #e2e8f0;'>
+      <td style='padding:12px; font-weight:700; color:#0a1628;'>Meta</td>
+      <td style='padding:12px; color:#64748b;'>2021</td>
+      <td style='padding:12px; color:#334155;'>Invest billions in Metaverse?</td>
+      <td style='padding:12px; color:#334155; line-height:1.6;'>Success on corporate revenue but Failed on segment level — Reality Labs posted $40B+ losses. Binary classification would misrepresent a genuinely ambiguous outcome.</td>
+      <td style='padding:12px; color:#92400e; font-weight:700;'>⚠️ Mixed</td>
+    </tr>
+    <tr style='border-bottom:1px solid #e2e8f0; background:#f8fafc;'>
+      <td style='padding:12px; font-weight:700; color:#0a1628;'>Disney</td>
+      <td style='padding:12px; color:#64748b;'>2019</td>
+      <td style='padding:12px; color:#334155;'>Acquire Fox and launch Disney+?</td>
+      <td style='padding:12px; color:#334155; line-height:1.6;'>Success on streaming (Disney+ reached 100M+ subscribers) but Failed on acquisition economics (Fox integration wrote down $22B). Metric-dependent outcome.</td>
+      <td style='padding:12px; color:#92400e; font-weight:700;'>⚠️ Mixed</td>
+    </tr>
+    <tr style='border-bottom:1px solid #e2e8f0;'>
+      <td style='padding:12px; font-weight:700; color:#0a1628;'>Toshiba</td>
+      <td style='padding:12px; color:#64748b;'>2023</td>
+      <td style='padding:12px; color:#334155;'>Accept JIP take-private buyout of ¥2T?</td>
+      <td style='padding:12px; color:#334155; line-height:1.6;'>Take-private deal completed in 2023 but long-term operational turnaround outcome remains unconfirmed. Cannot classify as clear Success or Failed at time of research.</td>
+      <td style='padding:12px; color:#92400e; font-weight:700;'>⚠️ Mixed</td>
+    </tr>
+  </tbody>
+</table>
+""", unsafe_allow_html=True)
         st.caption("Mixed cases were fully simulated by all three personas but excluded from binary accuracy calculations because no single financial metric can classify their outcome as unambiguously Success or Failed.")
         st.markdown("#### 🔄 Ongoing Case (1) — Simulated but Excluded")
-        # CHANGE 5: Added column_config to Ongoing table
-        st.dataframe(
-            pd.DataFrame({
-                "Company":["OpenAI"],
-                "Year":[2025],
-                "Decision":["Transition to fully commercial Public Benefit Corporation?"],
-                "AI Simulated":["✅ Yes"],
-                "Why Excluded":["The commercial transition is ongoing at the time of this research. No confirmed outcome exists — the decision cannot be evaluated for accuracy until the outcome is known."],
-                "Status":["🔄 Ongoing"]
-            }),
-            use_container_width=True,
-            hide_index=True,
-            column_config={
-                "Why Excluded": st.column_config.TextColumn("Why Excluded", width="large"),
-                "Decision": st.column_config.TextColumn("Decision", width="medium"),
-            },
-            height=80
-        )
+        st.markdown("""
+<table style='width:100%; border-collapse:collapse; font-size:13px; background:#ffffff;'>
+  <thead>
+    <tr style='background:#0a1628; color:#FFD700;'>
+      <th style='padding:10px 12px; text-align:left; width:10%;'>Company</th>
+      <th style='padding:10px 12px; text-align:left; width:8%;'>Year</th>
+      <th style='padding:10px 12px; text-align:left; width:27%;'>Decision</th>
+      <th style='padding:10px 12px; text-align:left; width:45%;'>Why Excluded</th>
+      <th style='padding:10px 12px; text-align:left; width:10%;'>Status</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style='padding:12px; font-weight:700; color:#0a1628;'>OpenAI</td>
+      <td style='padding:12px; color:#64748b;'>2025</td>
+      <td style='padding:12px; color:#334155;'>Transition to fully commercial Public Benefit Corporation?</td>
+      <td style='padding:12px; color:#334155; line-height:1.6;'>The commercial transition is ongoing at the time of this research. No confirmed outcome exists — the decision cannot be evaluated for accuracy until the outcome is known.</td>
+      <td style='padding:12px; color:#1e3a8a; font-weight:700;'>🔄 Ongoing</td>
+    </tr>
+  </tbody>
+</table>
+""", unsafe_allow_html=True)
     with tab2:
         st.markdown("### 💯 Scoring Analysis")
         st.caption("Scores represent simulated reasoning strength — not financial return predictions")
@@ -756,19 +772,19 @@ elif page == "🔬 Reliability Test":
     with c2: st.metric("✅ Decision Consistency","100%")
     with c3: st.metric("📊 Score Variation","0 points")
     st.markdown("---")
-    # CHANGE 8: Methodology note — kept technical detail but in appropriate context
-    st.markdown("### 🔍 Technical Methodology Note")
+    st.markdown("### 🔍 Methodology Note")
     st.markdown("""
-    All 156 simulations in this research (52 cases × 3 personas) were conducted at **temperature=0**,
-    which sets the language model to deterministic decoding — the same input always produces the same output.
+    All 156 simulations in this research (52 cases × 3 personas) were run in reproducible mode,
+    ensuring that identical inputs always produce identical outputs.
 
-    This reproducibility was verified through the test above, confirming:
-    - Binary decisions (PROCEED / DO NOT PROCEED) are identical across repeated runs
-    - Confidence scores are stable — 0-point variation
-    - Any independent evaluator can replicate the exact results reported in this thesis
+    This reproducibility was verified through the 45-simulation test above, confirming:
+    - Binary decisions (PROCEED / DO NOT PROCEED) are identical across all repeated runs
+    - Confidence scores are fully stable — 0-point variation
+    - Any independent evaluator can replicate the exact results reported in this thesis by running the same cases through the Live Analyzer
 
-    The live system at [agenticalpha.streamlit.app](https://agenticalpha.streamlit.app) also operates at temperature=0,
-    meaning that any case tested on the website will produce identical results to those reported in the dataset.
+    The live system at [agenticalpha.streamlit.app](https://agenticalpha.streamlit.app) is configured
+    identically to the research dataset — any case tested on the website produces the same result
+    as recorded in the study.
     """)
     st.markdown("---")
     st.markdown("### 🧪 Verify It Yourself")
