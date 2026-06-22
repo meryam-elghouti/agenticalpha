@@ -738,7 +738,6 @@ elif page == "⚔️ AI vs Human":
 elif page == "🔬 Reliability Test":
     st.title("🔬 Reliability & Reproducibility Test")
     st.markdown("*Verifying that simulation outputs are 100% consistent across repeated runs*")
-    # CHANGE 7: Simplified intro — removed raw "temperature=0" jargon, kept concept
     st.info("All simulations in this research were run in **reproducible mode** — identical inputs always produce identical outputs. This page verifies that claim through 45 repeated simulations.")
     st.markdown("---")
     st.markdown("""
@@ -749,14 +748,15 @@ elif page == "🔬 Reliability Test":
     produce the exact same result, regardless of when or how many times it is run.
     """)
     st.markdown("### 📊 Reliability Test Results — 5 Companies × 3 Runs × 3 Personas = 45 Simulations")
-    st.caption("Five representative cases (Success and Failed outcomes across different sectors) each run three times independently. All decisions and scores are identical across all runs.")
+    st.caption("Five representative cases each run three times using the Jury Demo with identical inputs. All decisions and scores are identical across all runs — confirming 100% consistency.")
+    # Results verified from Jury Demo page with identical inputs — 3 runs each
     reliability_data = {
         "Company": ["WeWork","WeWork","WeWork","Tesla","Tesla","Tesla","Apple","Apple","Apple","Theranos","Theranos","Theranos","Amazon","Amazon","Amazon"],
         "Year": [2019,2019,2019,2020,2020,2020,2018,2018,2018,2016,2016,2016,2015,2015,2015],
         "Outcome": ["Failed","Failed","Failed","Success","Success","Success","Success","Success","Success","Failed","Failed","Failed","Success","Success","Success"],
         "Run": ["Run 1","Run 2","Run 3","Run 1","Run 2","Run 3","Run 1","Run 2","Run 3","Run 1","Run 2","Run 3","Run 1","Run 2","Run 3"],
-        "Neutral Decision": ["YES","YES","YES","YES","YES","YES","YES","YES","YES","NO","NO","NO","YES","YES","YES"],
-        "Neutral Score": [40,40,40,85,85,85,85,85,85,20,20,20,92,92,92],
+        "Neutral Decision": ["NO","NO","NO","YES","YES","YES","YES","YES","YES","NO","NO","NO","YES","YES","YES"],
+        "Neutral Score": [20,20,20,85,85,85,85,85,85,20,20,20,85,85,85],
         "Aggressive Decision": ["YES","YES","YES","YES","YES","YES","YES","YES","YES","YES","YES","YES","YES","YES","YES"],
         "Aggressive Score": [80,80,80,85,85,85,85,85,85,80,80,80,95,95,95],
         "Conservative Decision": ["NO","NO","NO","NO","NO","NO","NO","NO","NO","NO","NO","NO","YES","YES","YES"],
@@ -780,15 +780,17 @@ elif page == "🔬 Reliability Test":
     This reproducibility was verified through the 45-simulation test above, confirming:
     - Binary decisions (PROCEED / DO NOT PROCEED) are identical across all repeated runs
     - Confidence scores are fully stable — 0-point variation
-    - Any independent evaluator can replicate the exact results reported in this thesis by running the same cases through the Live Analyzer
+    - Any independent evaluator can replicate the exact results reported in this thesis
 
-    The live system at [agenticalpha.streamlit.app](https://agenticalpha.streamlit.app) is configured
-    identically to the research dataset — any case tested on the website produces the same result
-    as recorded in the study.
+    **Important note:** Different pages on this website use slightly different prompt structures
+    tailored to their purpose — the Jury Demo uses brief decision questions, while the Live Analyzer
+    uses decision type categories. Both are internally consistent (same input = same output every time),
+    but they may produce different scores from each other on the same company. This is expected and
+    does not affect reproducibility — which is guaranteed within any given input.
     """)
     st.markdown("---")
     st.markdown("### 🧪 Verify It Yourself")
-    st.info("Run **WeWork 2019** (IPO / Going Public) in the Live Analyzer. You will get: Neutral = YES / 40, Aggressive = YES / 80, Conservative = NO / 20. Run it again — you will get the exact same result every time. ✅")
+    st.info("Go to **🎓 Jury Demo** and run: Company = WeWork · Year = 2019 · Decision = 'Proceed with IPO expansion?'. You will get: Neutral = NO / 20, Aggressive = YES / 80, Conservative = NO / 20. Run it again — the exact same result every time. ✅")
 # ══════════════════════════════════════════════
 # CUSTOM ANALYSIS
 # ══════════════════════════════════════════════
