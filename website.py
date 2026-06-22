@@ -433,6 +433,7 @@ elif page == "🤖 Live Analyzer":
     st.markdown("*Simulate corporate investment decisions through AI behavioral personas*")
     # KEEP: "does not predict" disclaimer is important
     st.info("⚠️ This tool simulates investment reasoning through behavioral personas. Results represent simulated decision reasoning — not causal financial predictions or investment advice.")
+    st.caption("💡 For results matching the research dataset exactly, use the 🎓 Jury Demo page which uses the precise decision context from each case.")
     st.markdown("---")
     c1,c2 = st.columns(2)
     with c1: company = st.text_input("🏢 Company Name:", placeholder="e.g. Apple, Tesla, OpenAI")
@@ -455,7 +456,12 @@ elif page == "🤖 Live Analyzer":
             for i,p in enumerate(PERSONAS):
                 with cols[i]:
                     with st.spinner("Simulating..."):
-                        # Map decision types to standard phrases matching Jury Demo
+                        # If company+year matches a known research case, use exact dataset decision
+                        lookup_key = f"{company.strip().lower()}_{year.strip()}"
+                        known_decisions = {
+                            f"{row['Company'].lower()}_{row['Year']}": row['Corporate_Decision']
+                            for _, row in df.iterrows()
+                        }
                         type_map = {
                             "IPO / Going Public": "Proceed with IPO expansion?",
                             "Merger & Acquisition (M&A)": "Proceed with the acquisition?",
@@ -468,7 +474,12 @@ elif page == "🤖 Live Analyzer":
                             "AI Investment": "Proceed with AI investment?",
                             "Restructuring": "Proceed with restructuring plan?"
                         }
-                        spec = custom if custom else type_map.get(decision_type, f"Proceed with {decision_type}?")
+                        if custom:
+                            spec = custom
+                        elif lookup_key in known_decisions:
+                            spec = known_decisions[lookup_key]
+                        else:
+                            spec = type_map.get(decision_type, f"Proceed with {decision_type}?")
                         q = f"""{p['instruction']}
 Company: {company} | Year: {year} | Decision: {spec}
 Answer in EXACTLY this format:
