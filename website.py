@@ -804,22 +804,6 @@ elif page == "🔬 Reliability Test":
     st.markdown("---")
     st.markdown("### 🧪 Verify It Yourself")
     st.info("Go to **🎓 Jury Demo** and run: Company = WeWork · Year = 2019 · Decision = 'Proceed with IPO expansion?'. You will get: Neutral = NO / 20, Aggressive = YES / 85, Conservative = NO / 20. Run it again — the exact same result every time. ✅")
-    st.markdown("---")
-    st.markdown("### ℹ️ Why Different Pages Show Slightly Different Scores")
-    st.markdown("""
-Each page sends a different prompt structure to the AI:
-
-| Page | Prompt Type | Example Aggressive Score |
-|------|-------------|--------------------------|
-| 🎓 Jury Demo | Brief decision question | 85/100 |
-| 🤖 Live Analyzer | Decision category only | varies |
-| 🔍 Custom Analysis | Full financial profile | 80/100 |
-
-**This is expected and correct.** Different inputs → different scores, even for the same company.
-What matters for reproducibility is that **the same page always gives the same result** — which is confirmed by the 45 simulations above showing 0-point variation.
-
-The research dataset was generated using consistent, standardised inputs for all 52 cases — ensuring that all accuracy calculations are based on comparable simulation conditions.
-    """)
 # ══════════════════════════════════════════════
 # CUSTOM ANALYSIS
 # ══════════════════════════════════════════════
